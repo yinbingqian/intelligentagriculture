@@ -1,96 +1,201 @@
 package com.lnpdit.intelligentagriculture.base.component;
 
-import com.lnpdit.intelligentagriculture.eventbus.EBCache;
-import com.lnpdit.intelligentagriculture.http.RdaResultPack;
+import java.util.List;
+
+import com.lnpdit.intelligentagriculture.base.application.DemoApplication;
+import com.lnpdit.intelligentagriculture.customview.LoadingPage;
+import com.lnpdit.intelligentagriculture.customview.LoadingPage.ILoadingDo;
+import com.lnpdit.intelligentagriculture.db.DBHelper;
+import com.lnpdit.intelligentagriculture.entity.CObject;
+import com.lnpdit.intelligentagriculture.entity.LoginUser;
+import com.lnpdit.intelligentagriculture.entity.UserInfo;
+import com.lnpdit.intelligentagriculture.http.ISoapService;
+import com.lnpdit.intelligentagriculture.http.SoapRes;
+import com.lnpdit.intelligentagriculture.http.SoapService;
 import com.lnpdit.intelligentagriculture.utils.EventCache;
-import com.lnpdit.intelligentagriculture.webservice.ISoapService;
-import com.lnpdit.intelligentagriculture.webservice.SoapRes;
-import com.lnpdit.intelligentagriculture.webservice.SoapService;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
-public abstract class BaseActivity extends Activity {
-    private boolean isEventBus_HTTP = true;// 是否注册EventBus
-    /** soapService **/
-    public ISoapService soapService = new SoapService();
-    public Intent intent = new Intent();// 页面跳转
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // eventBus = EventBus.getDefault();
-        // eventBus.register(this);
-        if (isEventBus_HTTP) {
-            EBCache.EB_HTTP.register(this);
-        }
+/**
+ * sub Acy
+ * 
+ * @author huanyu 类名称：BaseActivity 创建时间:2014-10-26 下午7:38:53
+ */
+public class BaseActivity extends Activity implements OnClickListener {
+	/** soapService **/
+	public ISoapService soapService = new SoapService();
+	/** loading **/
+	private LoadingPage loading;
+	private long exitTime;
+	public DemoApplication myApplication;
+	public Intent intent = new Intent();// 页面跳转
+	private static final String TAG = "SU-JPush";
 
-        EventCache.commandActivity.unregister(this);
-        EventCache.commandActivity.register(this);
-        EventCache.errorHttp.unregister(this);
-        EventCache.errorHttp.register(this);
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		addLoading();
+		myApplication = DemoApplication.getInstance();
+		EventCache.commandActivity.unregister(this);
+		EventCache.commandActivity.register(this);
+		EventCache.errorHttp.unregister(this);
+		EventCache.errorHttp.register(this);
+		Log.d(TAG, "[ExampleApplication] onCreate");
+	}
 
-    @Override
-    protected void onDestroy() {
-        if (isEventBus_HTTP) {
-            EBCache.EB_HTTP.unregister(this);
-        }
-        EventCache.commandActivity.unregister(this);
-        EventCache.errorHttp.unregister(this);
-        super.onDestroy();
+	/**
+	 * 添加loading
+	 */
+	public void addLoading() {
+		loading = new LoadingPage(this, new ILoadingDo() {
+			
+			@Override
+			public void soapFail(String methodName) {
+				EventCache.errorHttp.post(methodName);
+			}
+		});
+		
+		addContentView(loading, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+	}
 
-    }
+	/**
+	 * 移除 loading
+	 */
+	public void removeLoading() {
+		if (loading != null) {
+			ViewGroup parent = (ViewGroup) loading.ll_bg.getParent();
+			parent.removeView(loading.ll_bg);
+			loading = null;
+		}
+	}
 
-    // public void onEventMainThread(MEvent mEvent) {
-    // switch (mEvent.getEvent_code()) {
-    // case 0:
-    // System.out.println("HTTP");
-    // System.out.println("http  " + mEvent.getObj());
-    // break;
-    // case 1:
-    // System.out.println("ACTION");
-    // break;
-    // default:
-    // break;
-    // }
-    //
-    // }
-    // 初始化HTTP结果EventBus方法
-    protected abstract void onEventMainThread(RdaResultPack http);
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		MobclickAgent.onResume(this);
+	}
 
-    /**
-     * 异常返回
-     * 
-     * @param className
-     *            类名
-     */
-    protected void onEventMainThread(String className) {
+	@Override
+	protected void onPause() {
+		super.onPause();
+//		MobclickAgent.onPause(this);
+	}
 
-    }
-    
-    /**
-     * http回调SoapObject
-     * @param obj   
-     */
-    public void onEvent(Object obj) {
-        SoapRes res = (SoapRes) obj;
-//        if (res.getObj() == null && loading != null) {
-//            loading.setState(1,res.getCode());
-//        }else{
-//            removeLoading();
-//        }        
-    }
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventCache.commandActivity.unregister(this);
+		EventCache.errorHttp.unregister(this);
+	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+	protected boolean isParentActivity = true;
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+	public boolean isParentActivity() {
+		return isParentActivity;
+	}
 
+	public void setParentActivity(boolean isParentActivity) {
+		this.isParentActivity = isParentActivity;
+	}
+
+	/** 监听返回键 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (isParentActivity == true) {
+			if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+				if ((System.currentTimeMillis() - exitTime) > 2000) {
+					Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+					exitTime = System.currentTimeMillis();
+				} else {
+					finish();
+					System.exit(0);
+				}
+				return true;
+			}
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * 登录用户
+	 * 
+	 * @return
+	 */
+	public LoginUser getLoginUser(){
+		DBHelper dbh = new DBHelper(this);
+		return dbh.queryLoginUserInfo();
+	}
+	
+	public UserInfo getUserInfo() {
+		DBHelper dbh = new DBHelper(this);
+		List<UserInfo> userlist = dbh.queryUserInfo();
+		if(userlist.size()>0){
+			return userlist.get(0);
+		}else{
+			return null;
+		}
+	}
+
+	public void setLoginUser(LoginUser loginUser) {
+		DBHelper dbh = new DBHelper(this);
+		dbh.insLoginUserInfo(loginUser);
+		// myApplication.loginUser = loginUser;
+	}
+
+	@Override
+	public void onClick(View v) {
+
+	}
+
+	/**
+	 * http回调SoapObject
+	 * 
+	 * @param obj
+	 */
+	public void onEvent(Object obj) {
+
+//		if (obj instanceof com.sxit.entity.eb.ChatMessageEB) {
+//
+//		} else {
+//			SoapRes res = (SoapRes) obj;
+//			if (res.getObj() == null && loading != null) {
+//				loading.setState(1, res.getCode());
+//			} else {
+//				removeLoading();
+//			}
+//		}
+
+	}
+
+	/**
+	 * chat回调
+	 * 
+	 * @param obj
+	 */
+	public void onEvent(CObject obj) {
+
+	}
+
+	/**
+	 * http error回调
+	 * 
+	 * @param method
+	 *            方法明名
+	 */
+	public void onEventMainThread(String method) {
+
+	}
 }

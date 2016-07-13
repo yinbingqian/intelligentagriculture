@@ -46,7 +46,7 @@
         android:layout_height="fill_parent"
         android:background="#ffffff"
         android:cacheColorHint="#00000000"
-        android:divider="@color/dividerline"
+        android:divider="#eeeeee"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"

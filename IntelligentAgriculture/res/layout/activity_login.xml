@@ -36,8 +36,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/icon_yonghuming" />
         <EditText
+            android:id="@+id/username_edit"
             android:layout_centerVertical="true"
-            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
@@ -75,8 +75,8 @@
             android:src="@drawable/icon_mima" />
 
         <EditText
+            android:id="@+id/password_edit"
             android:layout_centerVertical="true"
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="11dip"

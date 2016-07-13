@@ -44,4 +44,16 @@
     <color name="loginbt_green">#1acfb3</color>
     <color name="dividerline">#eeeeee</color>
 
+    <!-- progressdialog字体颜色 蓝 -->
+    <color name="progress_msg_text_color_blue">#0159A0</color>
+    <!-- progressdialog字体颜色 深灰 -->
+    <color name="progress_msg_text_dark_grey">#333333</color>
+    <!-- 透明 -->
+    <color name="transparent">#00000000</color>
+    <!-- 黑白红 -->
+    <color name="blcak">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#CC0000</color>
+    <!-- 注册背景 -->
+    <color name="register_bg">#F8F8F8</color>
 </resources>

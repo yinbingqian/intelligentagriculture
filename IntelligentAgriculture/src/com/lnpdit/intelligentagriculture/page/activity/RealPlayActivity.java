@@ -742,10 +742,6 @@ public class RealPlayActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		Logout();
-
-		IDpsdkCore.DPSDK_Destroy(m_ReValue.nReturnValue);
-
 		super.onDestroy();
 	}
 

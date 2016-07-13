@@ -2,7 +2,7 @@ package com.lnpdit.intelligentagriculture.utils;
 
 public class SOAP_UTILS {
 	public class METHOD {
-		public static final String LOGIN = "Login";
+		public static final String LOGIN = "login";
 	}
 
 	public class ERROR {
@@ -18,7 +18,7 @@ public class SOAP_UTILS {
 
 	public static final String NAMESPACE = "MobileAlarm";
     public static final String IP_SIMPLE = "221.180.149.201";
-    public static final String IP = "http://221.180.149.201:8899";
+    public static final String IP = "http://200.20.30.231:8090";
     public static final String URL = IP + "/phoneinvoke.asmx?wsdl";
     public static final String URL_WITHOUT_WSDL = IP + "/phoneinvoke.asmx";
     public static final String PIC_FILE = IP + "/manage/pic/";

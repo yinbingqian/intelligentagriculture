@@ -1,14 +1,15 @@
 package com.lnpdit.intelligentagriculture.page.activity;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lnpdit.intelligentagriculture.R;
 import com.lnpdit.intelligentagriculture.entity.DataInfoUn;
+import com.lnpdit.intelligentagriculture.http.SoapRes;
 import com.lnpdit.intelligentagriculture.page.adapter.MonitorListAdapter;
 import com.lnpdit.intelligentagriculture.pulltorefresh.library.PullToRefreshBase;
 import com.lnpdit.intelligentagriculture.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.lnpdit.intelligentagriculture.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.lnpdit.intelligentagriculture.pulltorefresh.library.PullToRefreshListView;
-import com.lnpdit.intelligentagriculture.webservice.SoapRes;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,9 +42,27 @@ public class MainActivity extends Activity{
 		initView();
 		 
 		setListeners();
-        monitorlistAdapter = new MonitorListAdapter(context,monitorList);
-        monitorListView.setAdapter(monitorlistAdapter);
-       
+//		monitorlistAdapter = new MonitorListAdapter(context);
+		try {
+	        monitorList= new ArrayList<DataInfoUn>();  
+	        DataInfoUn un=new DataInfoUn();
+	        un.setId("1111");
+	        un.setCTime("1111");
+	        un.setTagName("1111");
+	        monitorList.add(un);
+	        un.setId("1111");
+            un.setCTime("1111");
+            un.setTagName("1111");
+            monitorList.add(un);
+	        
+		    monitorlistAdapter = new MonitorListAdapter(context,monitorList);
+		    monitorListView.setAdapter(monitorlistAdapter);
+		    
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
 	
 	}
 

@@ -34,7 +34,6 @@ public class WelcomeActivity extends BaseActivity {
         }, 1500);
     }
 
-    @Override
     protected void onEventMainThread(RdaResultPack http) {
         if (http.Match(userService.This(), "test")) {
             if (http.Success()) {
