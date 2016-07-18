@@ -13,33 +13,75 @@
  */
 package com.lnpdit.intelligentagriculture.base.application;
 
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.lnpdit.intelligentagriculture.page.activity.tabhost.MainTabHostActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 public class DemoApplication extends Application {
 
 	public static Context applicationContext;
-	private static DemoApplication instance;
+	private static DemoApplication instance = null;
 	// login user name
 	public final String PREF_USERNAME = "username";
+	public MainTabHostActivity mainTabHostActivity;
 	
 	/**
 	 * 当前用户nickname,为了苹果推送不是userid而是昵称
 	 */
 	public static String currentUserNick = "";
+ 
+	public synchronized static DemoApplication getInstance() {
+        if (null == instance) {
+            instance = new DemoApplication();
+        }
+        return instance;
+    }
 
+    // 运用list来保存们每一个activity是关键
+    private List<Activity> mList = new LinkedList<Activity>();
+
+    // add Activity
+    public void addActivity(Activity activity) {
+        mList.add(activity);
+    }
+
+    // 关闭每一个list内的activity
+    public void exit() {
+        try {
+            for (Activity activity : mList) {
+                if (activity != null)
+                    activity.finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // finally {
+        // System.exit(0);
+        // }
+    }
+    
 	@Override
 	public void onCreate() {
 		super.onCreate();
         applicationContext = this;
-        instance = this;
+//        instance = this;
+        instance = getInstance();
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
 
 	}
 
-	public static DemoApplication getInstance() {
-		return instance;
-	}
- 
+    public void exitApp() {
+	        if (mainTabHostActivity != null) {
+	            mainTabHostActivity.finish();
+	        }
+	      
+    }
 }

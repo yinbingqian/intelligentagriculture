@@ -2,7 +2,8 @@ package com.lnpdit.intelligentagriculture.utils;
 
 public class SOAP_UTILS {
 	public class METHOD {
-		public static final String LOGIN = "login";
+//		public static final String LOGIN = "login";
+		public static final String GETLASTWATCHDATA = "getLastWatchData";
 	}
 
 	public class ERROR {
@@ -18,8 +19,11 @@ public class SOAP_UTILS {
 
 	public static final String NAMESPACE = "MobileAlarm";
     public static final String IP_SIMPLE = "221.180.149.201";
-    public static final String IP = "http://200.20.30.231:8090";
-    public static final String URL = IP + "/phoneinvoke.asmx?wsdl";
+    public static final String IP = "http://200.20.30.231:8090/jfarm/f/CollectData/";
+//    public static final String IP = "http://200.20.30.231:8090/jfarm/a/";
+//    public static final String IP = "http://123.56.109.160:8099/";
+    public static final String URL = IP;
+//    public static final String URL = IP + "/phoneinvoke.asmx?wsdl";
     public static final String URL_WITHOUT_WSDL = IP + "/phoneinvoke.asmx";
     public static final String PIC_FILE = IP + "/manage/pic/";
     public static final String PIC_JOURNAL = IP + "/manage/magpic/";
@@ -30,6 +34,10 @@ public class SOAP_UTILS {
     public static final String FOOD_PATH = IP + "/manage/pic/food/";
     public static final String AUDIO_PATH = IP + "/audio/";
     public static final String COL_PATH = IP + "/columns.xml";
+
+    public static final String HTTP_PATHIP = "http://share.guzhang.tv";
+
+    public static final String HTTP_NEWSINFO_PATH = HTTP_PATHIP +"/share/content.aspx?id=";
     
 	// login type
 	public static final int POLICE = 0;// 警察

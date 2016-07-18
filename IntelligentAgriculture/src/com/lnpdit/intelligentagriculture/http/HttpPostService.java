@@ -35,6 +35,8 @@ public class HttpPostService {
             HttpContext localContext = new BasicHttpContext();
             HttpPost httpPost = new HttpPost(url);
 
+//            httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+//            httpPost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36");
             httpPost.addHeader("Content-Type", "application/json");
             httpPost.addHeader("User-Agent", "imgfornote");
 
@@ -42,8 +44,7 @@ public class HttpPostService {
             for (int i = 0; i < property_va.length; i++) {
                 jsonObject.put(property_nm[i], property_va[i]);
             }
-            httpPost.setEntity(
-                    new StringEntity(jsonObject.toString(), "UTF-8"));
+            httpPost.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
 
             HttpResponse response = httpClient.execute(httpPost, localContext);
             BufferedReader reader = new BufferedReader(new InputStreamReader(

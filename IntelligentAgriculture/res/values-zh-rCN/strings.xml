@@ -291,4 +291,8 @@
     <string name="action_settings">Settings</string>
     <string name="snapsucess">抓拍成功</string>
     <string name="snapfail">抓拍失败</string>
+    <string name="tabHost_frist">首页</string>
+    <string name="tabHost_second">视频</string>
+    <string name="tabHost_thrid">环境</string>
+    <string name="tabHost_fourth">个人</string>
 </resources>

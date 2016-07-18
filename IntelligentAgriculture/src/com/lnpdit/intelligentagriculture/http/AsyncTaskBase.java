@@ -30,7 +30,8 @@ public class AsyncTaskBase {
 
 		@Override
 		protected Object doInBackground(Object... params) {
-			Object res_obj = HttpService.data(method, property_nm, property_va);
+//		    Object res_obj = HttpService.data(method, property_nm, property_va);
+			Object res_obj = HttpPostService.data(method, property_nm, property_va);
 			if (null != res_obj) {
 				// String so = (String) res_obj;
 				return res_obj;

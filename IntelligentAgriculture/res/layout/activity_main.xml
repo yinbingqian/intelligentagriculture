@@ -2,55 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="@color/maingrey_bg"
-    android:orientation="vertical">
-        <RelativeLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/green_login_btn"
-        android:gravity="center_vertical" >
-        <TextView
-            android:id="@+id/monitor_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <com.lnpdit.intelligentagriculture.customview.FocusedtrueTV
+            android:id="@+id/tv_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
-            android:text="监控"
-            android:textColor="#ffffff"
-            android:textSize="19dp" />
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="30dp"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/menu_bt" />
-
-    <Button
-        android:id="@+id/back_bt"
-        android:layout_width="13dp"
-        android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/buttonLogin"
-        android:layout_margin="10dp"
-        android:background="@drawable/img_back" />
-
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
     </RelativeLayout>
-     <com.lnpdit.intelligentagriculture.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/listview_monitorlist"
+
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#ffffff"
-        android:cacheColorHint="#00000000"
-        android:divider="#eeeeee"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:listSelector="#00000000"
-        android:smoothScrollbar="true" />
+        android:layout_height="fill_parent" />
+
 </LinearLayout>

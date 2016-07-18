@@ -17,8 +17,8 @@
      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="35dp"
-        android:paddingRight="35dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:layout_marginTop="25dp" >
 
          <View 
@@ -63,8 +63,8 @@
        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="35dp"
-        android:paddingRight="35dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:layout_marginTop="10dp" >
  		<ImageView
             android:id="@+id/iv_password"
@@ -110,8 +110,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:orientation="horizontal" >
 
 
@@ -125,7 +125,7 @@
             android:gravity="center"
             android:text="登录"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="17dp" />
         
         <ProgressBar
         android:id="@+id/login_progressbar"

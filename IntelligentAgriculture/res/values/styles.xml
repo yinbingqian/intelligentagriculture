@@ -171,4 +171,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    
+        <!-- TabHost底部使用 -->
+    <style name="Theme" parent="@android:style/Theme"></style>
+
+    <style name="Theme.Tabhost">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

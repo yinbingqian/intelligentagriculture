@@ -12,6 +12,12 @@ public interface ISoapService extends IASoapService {
 	 * 
 	 * @param property_va
 	 */
-	void userLogin(Object[] property_va);
+	void getLastWatchData(Object[] property_va);
+//	/**
+//	 * 用户登录--用户名|密码
+//	 * 
+//	 * @param property_va
+//	 */
+//	void userLogin(Object[] property_va);
 	
 }
